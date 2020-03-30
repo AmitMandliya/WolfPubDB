@@ -221,7 +221,7 @@ public class Main {
             System.out.println("Invalid option selected");
             displayEditingMenu();
         }
-        EditingService editingService = new EditingService(1);
+        EditingService editingService = new EditingService(option);
         editingService.performOperation();
         System.out.println("Current operation is finished");
         System.out.println("Please select a choice:");
