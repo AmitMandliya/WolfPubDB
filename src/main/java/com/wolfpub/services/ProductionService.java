@@ -291,27 +291,9 @@ public class ProductionService {
                 System.out.println("Please enter following information:");
                 System.out.println("Please enter the Article ID.");
                 articleID = sc.nextInt();
-                System.out.println("Please enter Text (press enter if do not want to change)");
+                System.out.println("Please enter Text.");
                 sc.nextLine();
                 text = sc.nextLine();
-                // ====== handle unchanged data =======
-                query1 = "SELECT * FROM ARTICLES WHERE ArticleID= ?;";
-                try {
-                    PreparedStatement ps1 = connection.prepareStatement(query1);
-                    ps1.setInt(1, articleID);
-                    ResultSet rs = ps1.executeQuery();
-                    while (rs.next())
-                    {
-                        if (text.length() == 0)
-                        {
-                            text = rs.getString(3);
-                        }
-
-                    }
-                }
-                catch (SQLException e) {
-                    e.printStackTrace();
-                }
                 updateArticleText(articleID,text);
                 break;
             case 13:
@@ -610,10 +592,11 @@ public class ProductionService {
             }
 
             PreparedStatement ps = connection.prepareStatement(query);
-            if(text1.length()==0)
+            if(text1==null || text1.length()==0)
             {
                 ps.setInt(2, articleID);
                 ps.setString(1, text);
+                result=ps.executeUpdate();
 
             }
             else
@@ -625,7 +608,6 @@ public class ProductionService {
                 result=0;
 
             }
-
 
             if(result == 1)
                 System.out.println("Successfully inserted Article Text.");
@@ -640,29 +622,49 @@ public class ProductionService {
     private void updateArticleText(int articleID, String text)
     {
         String query = "UPDATE ARTICLES SET Text=? where ArticleID=?;";
+        String query1 = "SELECT * FROM ARTICLES WHERE ArticleID= ?;";
+        String text1=null;
+        int result=0;
         ResultSet rs=null;
         try
         {
-            PreparedStatement ps = connection.prepareStatement(query);
+            PreparedStatement ps1 = connection.prepareStatement(query1);
+            ps1.setInt(1,articleID);
+            rs = ps1.executeQuery();
 
-            text=rs.getString(3);
-            if(text.length()!=0)
+            while(rs.next()) {
+                text1 = rs.getString(3);
+
+            }
+            PreparedStatement ps = connection.prepareStatement(query);
+            if(text1==null || text1.length()==0)
             {
+                ps.setInt(2,articleID);
+                ps.setString(1,text1);
+
+                result = ps.executeUpdate();
+                result=0;
+            }
+            else
+            {
+
                 ps.setInt(2, articleID);
                 ps.setString(1, text);
+                result=ps.executeUpdate();
+
+
             }
-            rs=ps.executeQuery();
-            int result = ps.executeUpdate();
+
+
             if(result == 1)
-                System.out.println("Successfully Updated Article Text");
+                System.out.println("Successfully inserted Article Text.");
             else
-                System.out.println("Please insert the Article Text First.");
+                System.out.println("ArticleText doesn't exist. Please use insertArticleTextAPI");
         }
         catch (SQLException e)
         {
             e.printStackTrace();
         }
-
     }
     private void enterStaffPayment(int staffID, int paycheckID,int accountantID, Date value, float amount, boolean isClaimed)
     {
