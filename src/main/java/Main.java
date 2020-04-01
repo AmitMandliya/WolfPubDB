@@ -130,13 +130,14 @@ public class Main {
         System.out.println("1: Enter new distributor");
         System.out.println("2: Update distributor information");
         System.out.println("3: Delete a distributor");
-        System.out.println("4: Bill distributor for an order");
-        System.out.println("5: Change outstanding balance of a distributor on receipt of a payment");
-        System.out.println("6: Go back to API Menu");
+        System.out.println("4: Input orders from distributors, for a book edition or an issue of a publication per distributor, for a certain date");
+        System.out.println("5: Bill distributor for an order");
+        System.out.println("6: Change outstanding balance of a distributor on receipt of a payment");
+        System.out.println("7: Go back to API Menu");
         int option = sc.nextInt();
-        if(option == 6){
+        if(option == 7){
             displayAPIMenu();
-        }else if(option < 1 || option > 6){
+        }else if(option < 1 || option > 7){
             System.out.println("Invalid option selected");
             displayDistributionMenu();
         }
@@ -204,7 +205,7 @@ public class Main {
         System.out.println("2: Add a new book");
         System.out.println("3: Add new periodic publication information");
         System.out.println("4: Update information of publication");
-        System.out.println("5. Update book information");
+        System.out.println("5: Update book information");
         System.out.println("6: Update periodic publication information");
         System.out.println("7: Assign editors to publication");
         System.out.println("8: View the information for a Editor on the publications he/she is responsible for");
