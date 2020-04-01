@@ -4,16 +4,16 @@ import java.sql.Date;
 
 public class OrdersAndBill {
 
-    int orderID;
-    Date billDate;
-    int accountantID;
-    float billAmount;
+    private int orderID;
+    private Date billDate;
+    private int accountantID;
+    private float billAmount;
 
     public OrdersAndBill(int orderID, Date billDate, int accountantID, float billAmount) {
-        this.orderID = orderID;
-        this.billDate = billDate;
-        this.accountantID = accountantID;
-        this.billAmount = billAmount;
+        this.setOrderID(orderID);
+        this.setBillDate(billDate);
+        this.setAccountantID(accountantID);
+        this.setBillAmount(billAmount);
     }
 
     public int getOrderID() {

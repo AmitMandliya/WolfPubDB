@@ -1,12 +1,12 @@
 package com.wolfpub.models;
 
 public class Book {
-    int publicationID;
-    Long isbn;
-    int edition;
-    String topic;
+    private int publicationID;
+    private long isbn;
+    private int edition;
+    private String topic;
 
-    public Book(int publicationID, Long isbn, int edition, String topic) {
+    public Book(int publicationID, long isbn, int edition, String topic) {
         this.publicationID = publicationID;
         this.isbn = isbn;
         this.edition = edition;
@@ -21,11 +21,11 @@ public class Book {
         this.publicationID = publicationID;
     }
 
-    public Long getIsbn() {
+    public long getIsbn() {
         return isbn;
     }
 
-    public void setIsbn(Long isbn) {
+    public void setIsbn(long isbn) {
         this.isbn = isbn;
     }
 

@@ -2,8 +2,8 @@ package com.wolfpub.models;
 
 public class WrittenBy {
 
-    int articleID;
-    int staffID;
+    private int articleID;
+    private int staffID;
 
     public WrittenBy(int articleID, int staffID) {
         this.articleID = articleID;

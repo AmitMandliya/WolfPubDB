@@ -4,20 +4,20 @@ import java.sql.Date;
 
 public class GeneratePayment {
 
-    int staffID;
-    int paycheckID;
-    int accountantID;
-    Date date;
-    float amount;
-    boolean isClaimed;
+    private int staffID;
+    private int paycheckID;
+    private int accountantID;
+    private Date date;
+    private float amount;
+    private boolean isClaimed;
 
     public GeneratePayment(int staffID, int paycheckID, int accountantID, Date date, float amount, boolean isClaimed) {
-        this.staffID = staffID;
-        this.paycheckID = paycheckID;
-        this.accountantID = accountantID;
-        this.date = date;
-        this.amount = amount;
-        this.isClaimed = isClaimed;
+        this.setStaffID(staffID);
+        this.setPaycheckID(paycheckID);
+        this.setAccountantID(accountantID);
+        this.setDate(date);
+        this.setAmount(amount);
+        this.setClaimed(isClaimed);
     }
 
     public int getStaffID() {

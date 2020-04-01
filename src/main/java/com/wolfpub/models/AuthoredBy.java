@@ -2,8 +2,8 @@ package com.wolfpub.models;
 
 public class AuthoredBy {
 
-    int publicationID;
-    int staffID;
+    private int publicationID;
+    private int staffID;
 
     public int getPublicationID() {
         return publicationID;

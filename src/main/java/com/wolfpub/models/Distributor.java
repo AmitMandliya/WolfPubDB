@@ -1,24 +1,24 @@
 package com.wolfpub.models;
 
 public class Distributor {
-    int distributorID;
-    String address;
-    String name;
-    String contact;
-    String city;
-    String contactPerson;
-    String distributorType;
-    float balance;
+    private int distributorID;
+    private String address;
+    private String name;
+    private String contact;
+    private String city;
+    private String contactPerson;
+    private String distributorType;
+    private float balance;
 
     public Distributor(int distributorID, String address, String name, String contact, String city, String contactPerson, String distributorType, float balance) {
-        this.distributorID = distributorID;
-        this.address = address;
-        this.name = name;
-        this.contact = contact;
-        this.city = city;
-        this.contactPerson = contactPerson;
-        this.distributorType = distributorType;
-        this.balance = balance;
+        this.setDistributorID(distributorID);
+        this.setAddress(address);
+        this.setName(name);
+        this.setContact(contact);
+        this.setCity(city);
+        this.setContactPerson(contactPerson);
+        this.setDistributorType(distributorType);
+        this.setBalance(balance);
     }
 
     public int getDistributorID() {

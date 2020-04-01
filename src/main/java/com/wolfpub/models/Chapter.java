@@ -2,14 +2,15 @@ package com.wolfpub.models;
 import java.sql.Date;
 public class Chapter {
 
-    int chapterID;
-    Date CreationDate;
-    String text;
-    String title;
-    String category;
-    int publicationID;
+    private int chapterID;
+    private Date CreationDate;
+    private String text;
+    private String title;
+    private String category;
+    private int publicationID;
 
-    public Chapter(int chapterID, Date creationDate, String text, String title, String category, int publicationID) {
+    public Chapter(int chapterID, Date creationDate, String text, String title, String category, int publicationID)
+    {
         this.chapterID = chapterID;
         CreationDate = creationDate;
         this.text = text;

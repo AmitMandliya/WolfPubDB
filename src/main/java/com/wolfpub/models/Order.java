@@ -2,26 +2,26 @@ package com.wolfpub.models;
 import java.sql.Date;
 public class Order {
 
-    int orderID;
-    Date orderDate;
-    Date expectedDate;
-    float shippingCost;
-    boolean isPaid;
-    int numberCopies;
-    float price;
-    int distributorID;
-    int publicationID;
+    private int orderID;
+    private Date orderDate;
+    private Date expectedDate;
+    private float shippingCost;
+    private boolean isPaid;
+    private int numberCopies;
+    private float price;
+    private int distributorID;
+    private int publicationID;
 
     public Order(int orderID, Date orderDate, Date expectedDate, float shippingCost, boolean isPaid, int numberCopies, float price, int distributorID, int publicationID) {
-        this.orderID = orderID;
-        this.orderDate = orderDate;
-        this.expectedDate = expectedDate;
-        this.shippingCost = shippingCost;
-        this.isPaid = isPaid;
-        this.numberCopies = numberCopies;
-        this.price = price;
-        this.distributorID = distributorID;
-        this.publicationID = publicationID;
+        this.setOrderID(orderID);
+        this.setOrderDate(orderDate);
+        this.setExpectedDate(expectedDate);
+        this.setShippingCost(shippingCost);
+        this.setPaid(isPaid);
+        this.setNumberCopies(numberCopies);
+        this.setPrice(price);
+        this.setDistributorID(distributorID);
+        this.setPublicationID(publicationID);
     }
 
     public int getOrderID() {

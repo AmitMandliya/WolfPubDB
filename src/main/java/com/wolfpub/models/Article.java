@@ -1,18 +1,18 @@
 package com.wolfpub.models;
 import java.sql.Date;
 public class Article{
-    int articleID;
-    Date creationDate;
-    String text;
-    String title;
-    int publicationID;
+    private int articleID;
+    private Date creationDate;
+    private String text;
+    private String title;
+    private int publicationID;
 
     public Article(int articleID, Date creationDate, String text, String title, int publicationID) {
-        this.articleID = articleID;
-        this.creationDate = creationDate;
-        this.text = text;
-        this.title = title;
-        this.publicationID = publicationID;
+        this.setArticleID(articleID);
+        this.setCreationDate(creationDate);
+        this.setText(text);
+        this.setTitle(title);
+        this.setPublicationID(publicationID);
     }
 
     public int getArticleID() {

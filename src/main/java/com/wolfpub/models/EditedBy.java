@@ -1,8 +1,8 @@
 package com.wolfpub.models;
 
 public class EditedBy {
-    int publicationID;
-    int staffID;
+    private int publicationID;
+    private int staffID;
 
     public EditedBy(int publicationID, int staffID) {
         this.publicationID = publicationID;

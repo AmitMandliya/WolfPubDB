@@ -2,18 +2,18 @@ package com.wolfpub.models;
 
 public class PeriodicPublication {
 
-    int publicationID;
-    String periodicity;
-    int issueNumber;
-    String type;
-    String category;
+    private int publicationID;
+    private String periodicity;
+    private int issueNumber;
+    private String type;
+    private String category;
 
     public PeriodicPublication(int publicationID, String periodicity, int issueNumber, String type, String category) {
-        this.publicationID = publicationID;
-        this.periodicity = periodicity;
-        this.issueNumber = issueNumber;
-        this.type = type;
-        this.category = category;
+        this.setPublicationID(publicationID);
+        this.setPeriodicity(periodicity);
+        this.setIssueNumber(issueNumber);
+        this.setType(type);
+        this.setCategory(category);
     }
 
     public int getPublicationID() {

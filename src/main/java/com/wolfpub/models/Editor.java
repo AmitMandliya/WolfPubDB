@@ -1,7 +1,7 @@
 package com.wolfpub.models;
 
 public class Editor {
-    int staffID;
+    private int staffID;
 
     public Editor(int staffID) {
         this.staffID = staffID;

@@ -4,18 +4,18 @@ import java.sql.Date;
 
 public class ClearDues {
 
-    int paymentID;
-    int distributorID;
-    int accountantID;
-    Date paymentDate;
-    float paymentAmount;
+    private int paymentID;
+    private int distributorID;
+    private int accountantID;
+    private Date paymentDate;
+    private float paymentAmount;
 
     public ClearDues(int paymentID, int distributorID, int accountantID, Date paymentDate, float paymentAmount) {
-        this.paymentID = paymentID;
-        this.distributorID = distributorID;
-        this.accountantID = accountantID;
-        this.paymentDate = paymentDate;
-        this.paymentAmount = paymentAmount;
+        this.setPaymentID(paymentID);
+        this.setDistributorID(distributorID);
+        this.setAccountantID(accountantID);
+        this.setPaymentDate(paymentDate);
+        this.setPaymentAmount(paymentAmount);
     }
 
     public int getPaymentID() {

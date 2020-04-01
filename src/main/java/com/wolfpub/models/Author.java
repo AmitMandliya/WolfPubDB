@@ -1,7 +1,7 @@
 package com.wolfpub.models;
 
 public class Author {
-    int staffID;
+    private int staffID;
 
     public int getStaffID() {
         return staffID;

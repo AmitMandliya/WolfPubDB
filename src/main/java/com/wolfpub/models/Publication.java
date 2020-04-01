@@ -1,8 +1,8 @@
 package com.wolfpub.models;
 import java.sql.Date;
 public class Publication {
-    int publicationID;
-    String title;
+    private int publicationID;
+    private String title;
     java.sql.Date publicationDate;
     public Publication(int publicationID, String title, java.sql.Date publicationDate) {
         this.publicationID = publicationID;

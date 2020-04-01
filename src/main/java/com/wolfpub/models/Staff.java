@@ -2,16 +2,16 @@ package com.wolfpub.models;
 
 public class Staff {
 
-    int staffID;
-    boolean isInvited;
-    String staffName;
-    String type;
+    private int staffID;
+    private boolean isInvited;
+    private String staffName;
+    private String type;
 
     public Staff(int staffID, boolean isInvited, String staffName, String type) {
-        this.staffID = staffID;
-        this.isInvited = isInvited;
-        this.staffName = staffName;
-        this.type = type;
+        this.setStaffID(staffID);
+        this.setInvited(isInvited);
+        this.setStaffName(staffName);
+        this.setType(type);
     }
 
     public int getStaffID() {

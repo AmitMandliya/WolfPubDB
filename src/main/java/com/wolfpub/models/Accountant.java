@@ -1,7 +1,7 @@
 package com.wolfpub.models;
 
 public class Accountant {
-    int accountantID;
+    private int accountantID;
 
     public Accountant(int accountantID) {
         this.accountantID = accountantID;

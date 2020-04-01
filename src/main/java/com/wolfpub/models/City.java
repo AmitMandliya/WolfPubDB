@@ -1,8 +1,8 @@
 package com.wolfpub.models;
 
 public class City {
-    String city;
-    int location;
+    private String city;
+    private int location;
 
     public City(String city, int location) {
         this.city = city;
