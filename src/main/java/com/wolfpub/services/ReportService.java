@@ -1,9 +1,5 @@
 package com.wolfpub.services;
 
-/**
- * @author devarshshah
- * @date 2020-04-02
- */
 import com.wolfpub.connection.DBManager;
 
 import java.sql.*;
@@ -92,7 +88,82 @@ public class ReportService {
                     e.printStackTrace();
                 }
                 break;
-                default:
+            case 4:
+                //Create a report of count of current distributors
+                rs = getDistributors();
+                try {
+                    ResultSetMetaData rsmd = rs.getMetaData();
+                    int columnCount = rsmd.getColumnCount();
+                    for (int i = 1; i <= columnCount; i++ )
+                    {
+                        String name = rsmd.getColumnName(i);
+                        System.out.print(name+"\t");
+                    }
+                    System.out.println("");
+                    while(rs.next())
+                    {
+                        System.out.println(rs.getInt(1));
+                    }
+                }
+                catch (SQLException e)
+                {
+                    e.printStackTrace();
+                }
+                break;
+            case 5:
+                //Create a report of total revenue grouped by distributor, city, location since Inception
+                System.out.println("Enter option to view report \n 1- per distributor\t 2-per city\t3-per location");
+                int op = sc.nextInt();
+                rs = getTotalRevenue(op);
+                try {
+                    ResultSetMetaData rsmd = rs.getMetaData();
+                    int columnCount = rsmd.getColumnCount();
+                    for (int i = 1; i <= columnCount; i++ )
+                    {
+                        String name = rsmd.getColumnName(i);
+                        System.out.print(name+"\t");
+                    }
+                    System.out.println("");
+                    while (rs.next())
+                    {
+                        if(op==2)
+                        {
+                            System.out.print(rs.getString(1)+"\t");
+                        }
+                        else
+                        {
+                            System.out.print(rs.getInt(1)+"\t");
+                        }
+                        System.out.print(rs.getFloat(2)+"\n");
+                    }
+                }
+                catch (SQLException e)
+                {
+                    e.printStackTrace();
+                }
+
+                break;
+            case 6:
+                //Create a report of  total payment given to Staff between startDate and endDate per work type
+                System.out.println("Enter Start date :");
+                stDate=sc.nextLine();
+                System.out.println("Enter end date :");
+                endDate=sc.nextLine();
+                rs = getStaffPaymentbetweenDates(java.sql.Date.valueOf(stDate),java.sql.Date.valueOf(endDate));
+                try{
+                while(rs.next())
+                {
+                    System.out.println(rs.getString(1));
+                    System.out.println(rs.getFloat(2));
+                }
+                }
+                catch (SQLException e)
+                {
+                    e.printStackTrace();
+                }
+
+                break;
+            default:
                 throw new IllegalStateException("Unexpected value: " + option);
         }
         try {
@@ -159,6 +230,91 @@ public class ReportService {
         }
         return rs;
     }
+    ResultSet getStaffPaymentbetweenDates(java.sql.Date st, java.sql.Date end)
+        {
+            ResultSet result=null;
+            String query = "SELECT WORKTYPE, Payment from (SELECT SUM(Amount) AS Payment, \'AUTHORSHIP\' AS WORKTYPE FROM GENERATEPAYMENT, AUTHORS " +
+                            "WHERE GENERATEPAYMENT.StaffID  = AUTHORS.StaffID " +
+                            "AND Date BETWEEN ? AND ? UNION ALL " +
+                            "SELECT SUM(Amount) AS Payment, \'EDITORSHIP\' AS WORKTYPE " +
+                            "FROM GENERATEPAYMENT, EDITORS " +
+                            "WHERE GENERATEPAYMENT.StaffID  = EDITORS.StaffID " +
+                            "AND Date BETWEEN ? AND ? " +
+                            "UNION ALL " +
+                            "SELECT SUM(Amount) AS  Payment, \'JOURNALISM\' AS WORKTYPE " +
+                            "FROM GENERATEPAYMENT, JOURNALISTS WHERE GENERATEPAYMENT.StaffID  = JOURNALISTS.StaffID " +
+                            "AND Date BETWEEN ? AND ? ) DERIVEDRELATION;";
+            try {
+                PreparedStatement ps = connection.prepareStatement(query);
+                ps.setString(1, st.toString());
+                ps.setDate(2, end);
+                ps.setString(3, st.toString());
+                ps.setDate(4, end);
+                ps.setString(5, st.toString());
+                ps.setDate(6, end);
+                result = ps.executeQuery();
+                return result;
+            }catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return result;
+        }
+
+    ResultSet getTotalRevenue(int op)
+        {
+            ResultSet result=null;
+            if (op==1)
+            {
+                //per distributor
+                String query = "SELECT DISTRIBUTORS.DistributorID, SUM(PaymentAmount) FROM DISTRIBUTORS, CLEARDUES WHERE DISTRIBUTORS.DistributorID = CLEARDUES.DistributorID GROUP BY DISTRIBUTORS.DistributorID;";
+                try {
+                    PreparedStatement ps = connection.prepareStatement(query);
+                    result = ps.executeQuery();
+                    return result;
+                }catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            else if(op==2)
+            {
+                //per city
+                String query = "SELECT DISTRIBUTORS.City, SUM(PaymentAmount) FROM DISTRIBUTORS, CLEARDUES WHERE DISTRIBUTORS.DistributorID = CLEARDUES.DistributorID GROUP BY DISTRIBUTORS.City;";
+                try {
+                    PreparedStatement ps = connection.prepareStatement(query);
+                    result = ps.executeQuery();
+                    return result;
+                }catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            else
+            {
+                // per location
+                String query = "SELECT CITIES.Location, SUM(PaymentAmount) FROM DISTRIBUTORS, CITIES, CLEARDUES WHERE DISTRIBUTORS.DistributorID = CLEARDUES.DistributorID AND DISTRIBUTORS.City = CITIES.City GROUP BY CITIES.Location;";
+                try {
+                    PreparedStatement ps = connection.prepareStatement(query);
+                    result = ps.executeQuery();
+                    return result;
+                }catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            return result;
+        }
+
+	ResultSet getDistributors()
+        {
+            ResultSet result=null;
+            String query = "SELECT COUNT(*) FROM DISTRIBUTORS;";
+            try {
+                PreparedStatement ps = connection.prepareStatement(query);
+                result = ps.executeQuery();
+                return result;
+            }catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return result;
+        }
 }
 
 
