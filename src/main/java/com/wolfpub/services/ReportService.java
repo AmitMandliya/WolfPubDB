@@ -146,7 +146,7 @@ public class ReportService {
             case 6:
                 //Create a report of  total payment given to Staff between startDate and endDate per work type
                 System.out.println("Enter Start date :");
-                stDate=sc.nextLine();
+                String stDate=sc.nextLine();
                 System.out.println("Enter end date :");
                 endDate=sc.nextLine();
                 rs = getStaffPaymentbetweenDates(java.sql.Date.valueOf(stDate),java.sql.Date.valueOf(endDate));
