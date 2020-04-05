@@ -438,34 +438,68 @@ public class DistributionService {
     }
 
     private void enterDistributorInfo(Distributor distributor, City cityObj) {
-        PreparedStatement ps;
-        int distributorID = distributor.getDistributorID();
-        String address = distributor.getAddress();
-        String name = distributor.getName();
-        String contact = distributor.getContact();
-        String city = distributor.getCity();
-        String contactPerson = distributor.getContactPerson();
-        String distributorType = distributor.getDistributorType();
-        float balance = distributor.getBalance();
+        PreparedStatement psInsert = null, psInsert2 = null;
         int location = cityObj.getLocation();
-        String insertQuery = "INSERT DISTRIBUTORS SET  distributorID = ?, Name = ?, Address = ?,  Contact = ?, City = ?, ContactPerson = ?, DistributorType = ?";
+        String insertQuery = "INSERT INTO CITIES SET City = ?, Location = ?";
+        String insertQuery2 = "INSERT INTO DISTRIBUTORS SET  distributorID = ?, Name = ?, Address = ?,  Contact = ?, City = ?, ContactPerson = ?, DistributorType = ?, Balance = ?";
         try{
-            // Update the data as per user provided attribute values
-            ps = connection.prepareStatement(insertQuery);
-            ps.setInt(1, distributorID);
-            ps.setString(2, name);
-            ps.setString(3, address);
-            ps.setString(4, contact);
-            ps.setString(5, city);
-            ps.setString(6, contactPerson);
-            ps.setString(7,distributorType);
-            int result = ps.executeUpdate();
+            connection.setAutoCommit(false);
+            // Check if the City is not available in CITIES table, create a entry for City in CITIES
+            if(!isCityAvailable(cityObj)){
+                psInsert = connection.prepareStatement(insertQuery);
+                psInsert.setString(1,cityObj.getCity());
+                psInsert.setInt(2,cityObj.getLocation());
+            }
+            // Insert the Distributor's Information in DISTRIBUTORS able.
+            psInsert2 = connection.prepareStatement(insertQuery2);
+            psInsert2.setInt(1, distributor.getDistributorID());
+            psInsert2.setString(2, distributor.getName());
+            psInsert2.setString(3, distributor.getAddress());
+            psInsert2.setString(4, distributor.getContact());
+            psInsert2.setString(5,  distributor.getCity());
+            psInsert2.setString(6, distributor.getContactPerson());
+            psInsert2.setString(7,distributor.getDistributorType());
+            psInsert2.setFloat(8, distributor.getBalance());
+            if(psInsert != null){
+                psInsert.executeUpdate();
+            }
+            int result = psInsert2.executeUpdate();
             if(result == 1)
                 System.out.println("Successfully inserted distributor Details.");
             else
                 System.out.println("Unsuccessful.");
+            connection.commit();
+        } catch (SQLException e) {
+            try {
+                connection.rollback();
+                System.out.println("Rolled back the transaction.");
+            } catch (SQLException ex) {
+                System.out.println("Rollback unsuccessful.");
+                ex.printStackTrace();
+            }
+            e.printStackTrace();
+        }
+        try {
+            // since this object is shared, set the autocommit to true again
+            connection.setAutoCommit(true);
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+    // Below function checks if a city is already available in CITIES Table
+    private boolean isCityAvailable(City cityObj){
+        PreparedStatement ps;
+        String selectQuery = "SELECT * FROM CITIES WHERE CITY = ?";
+        try{
+            ps = connection.prepareStatement(selectQuery);
+            ps.setString(1, cityObj.getCity());
+            ResultSet resultSet = ps.executeQuery();
+            if(resultSet.next())
+                return true;
+            return false;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

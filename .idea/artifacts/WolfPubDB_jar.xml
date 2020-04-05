@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="WolfPubDB:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/WolfPubDB_jar</output-path>
+    <root id="archive" name="WolfPubDB.jar">
+      <element id="module-output" name="WolfPubDB" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../mariadb-java-client-2.6.0.jar" path-in-jar="/" />
+      <element id="library" level="project" name="Maven: org.mariadb.jdbc:mariadb-java-client:2.6.0" />
+    </root>
+  </artifact>
+</component>
