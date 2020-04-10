@@ -116,7 +116,6 @@ public class DistributionService {
                 System.out.println("Please enter the city:");
                 city = sc.nextLine();
                 System.out.println("Please enter the ZIP Code/location in Integer format:");
-                //location = sc.nextInt();
                 locationString = sc.nextLine();
                 while(true) {
                     try {
@@ -126,7 +125,7 @@ public class DistributionService {
                             location = Integer.parseInt(locationString);
                         break;
                     } catch (NumberFormatException exp) {
-                        System.out.println("Location should be a integer value, please provide a valid value.");
+                        System.out.println("Location should be an integer value, please provide a valid value.");
                         locationString = sc.nextLine();
                     }
                 }
@@ -161,6 +160,7 @@ public class DistributionService {
                 distributorID = sc.nextInt();
                 deleteDistributorInfo(distributorID);
                 sc.nextLine(); // throw away the new line character
+                break;
             case 4:
                 // Input orders from distributors, for a book edition or an issue of a publication per distributor, for a certain date
                 System.out.println("Please enter following information ");
@@ -171,7 +171,7 @@ public class DistributionService {
                         distributorID = Integer.parseInt(distributorIDString);
                         break;
                     } catch (NumberFormatException exp) {
-                        System.out.println("distributorID should be a integer value, please provide a valid value.");
+                        System.out.println("distributorID should be an integer value, please provide a valid value.");
                         distributorIDString = sc.nextLine();
                     }
                 }
@@ -182,7 +182,7 @@ public class DistributionService {
                         orderID = Integer.parseInt(orderIDString);
                         break;
                     } catch (NumberFormatException exp) {
-                        System.out.println("orderID should be a integer value, please provide a valid value.");
+                        System.out.println("orderID should be an integer value, please provide a valid value.");
                         orderIDString = sc.nextLine();
                     }
                 }
@@ -193,7 +193,7 @@ public class DistributionService {
                         publicationID = Integer.parseInt(publicationIDString);
                         break;
                     } catch (NumberFormatException exp) {
-                        System.out.println("orderID should be a integer value, please provide a valid value.");
+                        System.out.println("orderID should be an integer value, please provide a valid value.");
                         publicationIDString = sc.nextLine();
                     }
                 }
