@@ -209,10 +209,11 @@ public class EditingService {
                 ResultSet rs = getMyPublicationsInfo(staffID);
                 try
                 {
-                    System.out.println("PublicationID\tTitle\tPublication Date");
+                    System.out.println("PublicationID\t\t\t\t\t\tTitle\t\t\t\tPublication Date");
                     while(rs.next()!= false)
                     {
-                        System.out.println(rs.getInt("publicationID")+"\t"+rs.getString("title")+"\t"+rs.getDate("publicationDate").toString());
+                        String x=String.format("%13d %30s %19s",rs.getInt("publicationID"), rs.getString("title"),rs.getDate("publicationDate").toString());
+                        System.out.println(x);
                     }
                 }
                 catch (SQLException e)
@@ -239,13 +240,17 @@ public class EditingService {
                     System.out.println("");
                     if (columnCount==4) {
                         while (rs.next() != false) {
-                            System.out.println(rs.getInt(1) + "\t" + rs.getLong(2) + "\t"+ rs.getInt(3) + "\t" + rs.getString(4));
+                            String x=String.format("%7d %10d %10d %14s",rs.getInt(1), rs.getLong(2),rs.getInt(3), rs.getString(4));
+                            System.out.println(x);
+                            //System.out.println( + "\t" +  + "\t"+  + "\t" + );
                         }
                     }
                     else
                     {
                         while (rs.next() != false) {
-                            System.out.println(rs.getInt(1) + "\t" + rs.getString(2) + "\t" + rs.getInt(3) + "\t" +rs.getString(4)+"\t" + rs.getString(5));
+                            String x=String.format("%7d %12s %10d %14s %14s",rs.getInt(1), rs.getString(2),rs.getInt(3), rs.getString(4),rs.getString(5));
+                            System.out.println(x);
+                            //System.out.println( + "\t" +  + "\t" + rs.getInt(3) + "\t" +rs.getString(4)+"\t" + );
                         }
                     }
                 }
