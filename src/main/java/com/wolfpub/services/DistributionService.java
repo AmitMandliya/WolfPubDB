@@ -126,7 +126,7 @@ public class DistributionService {
                             location = Integer.parseInt(locationString);
                         break;
                     } catch (NumberFormatException exp) {
-                        System.out.println("Balance should be a integer value, please provide a valid value.");
+                        System.out.println("Location should be a integer value, please provide a valid value.");
                         locationString = sc.nextLine();
                     }
                 }
