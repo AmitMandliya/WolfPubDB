@@ -128,11 +128,11 @@ public class ReportService {
                     {
                         if(op==2)
                         {
-                            System.out.print(rs.getString(1)+"\t");
+                            System.out.print(rs.getString(1)+"\t \t");
                         }
                         else
                         {
-                            System.out.print(rs.getInt(1)+"\t");
+                            System.out.print(rs.getInt(1)+"\t \t");
                         }
                         System.out.print(rs.getFloat(2)+"\n");
                     }

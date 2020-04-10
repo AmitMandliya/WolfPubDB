@@ -209,9 +209,10 @@ public class DistributionService {
                 System.out.println("Please enter the number of copies:");
                 numberCopies = sc.nextInt();
                 sc.nextLine(); //throw away the newline character
+                System.out.println("Please enter the price:");
                 priceString = sc.nextLine();
                 price = Float.parseFloat(priceString);
-                sc.nextLine(); // throw away the newline character
+                //sc.nextLine(); // throw away the newline character
                 isPaid = false; // new order
                 order = new Order(orderID, orderDate, expectedDate, shippingCost, isPaid, numberCopies, price, distributorID, publicationID);
                 placeOrder(order);
@@ -267,7 +268,7 @@ public class DistributionService {
         PreparedStatement psInsert = null;
         PreparedStatement psUpdate = null;
         String insertQuery = "INSERT INTO CLEARDUES(PaymentID,DistributorID,AccountantID,PaymentDate,PaymentAmount) VALUES (?,?,?,?,?)";
-        String updateQuery = "UPDATE DISTRIBUTORS SET BALANCE = BALANCE - ? WHERE  DistributorID = ?";
+        String updateQuery = "UPDATE DISTRIBUTORS SET BALANCE = BALANCE + ? WHERE  DistributorID = ?";
 
         try {
             connection.setAutoCommit(false);
@@ -309,14 +310,40 @@ public class DistributionService {
 
     private void enterBillingInfo(OrdersAndBill ordersAndBill) {
         PreparedStatement ps;
+        PreparedStatement psUpdate, psSelect;
+        int distributorID;
         String insertQuery = "INSERT INTO  ORDERSANDBILL(OrderID,BillDate,AccountantID,BillAmount) VALUES (?,?,?,?)";
+        String updateQuery = "UPDATE DISTRIBUTORS SET Balance = Balance - ? WHERE DistributorID = ?";
+        String selectQuery = "SELECT DistributorID FROM ORDERS WHERE OrderID = ?";
         try{
             ps = connection.prepareStatement(insertQuery);
             ps.setInt(1,ordersAndBill.getOrderID());
             ps.setDate(2,ordersAndBill.getBillDate());
             ps.setInt(3,ordersAndBill.getAccountantID());
             ps.setFloat(4,ordersAndBill.getBillAmount());
-            int result = ps.executeUpdate();
+
+            psSelect = connection.prepareStatement(selectQuery);
+            psSelect.setInt(1, ordersAndBill.getOrderID());
+            ResultSet rs = psSelect.executeQuery();
+            if(rs.next()){
+                distributorID = rs.getInt(1);
+                System.out.println("ID = "+distributorID);
+            }else {
+                System.out.println("distributorID not found.");
+                return;
+            }
+
+            psUpdate = connection.prepareStatement(updateQuery);
+            psUpdate.setFloat(1,ordersAndBill.getBillAmount());
+            psUpdate.setInt(2, distributorID);
+            int result = psUpdate.executeUpdate();
+            if(result == 1) {
+                System.out.println("Balance Updated for Distributor.");
+            }else {
+                System.out.println("Balance can't be Updated for Distributor.");
+            }
+
+            result = ps.executeUpdate();
             if(result == 1)
                 System.out.println("Successfully inserted Bill Details.");
             else
@@ -328,7 +355,7 @@ public class DistributionService {
 
     private void placeOrder(Order order) {
         PreparedStatement ps;
-        String insertQuery = "INSERT INTO ORDERS VALUES OrderID = ?, OrderDate = ?, ExpectedDate = ?, ShippingCost = ?, IsPaid = ?, NumberCopies= ?, Price = ?, DistributorID = ?, PublicationID = ?";
+        String insertQuery = "INSERT INTO ORDERS (OrderID , OrderDate , ExpectedDate , ShippingCost , IsPaid , NumberCopies , Price , DistributorID , PublicationID) VALUES (?,?,?,?,?,?,?,?,?)";
         try{
             ps = connection.prepareStatement(insertQuery);
             ps.setInt(1, order.getOrderID());
@@ -418,7 +445,7 @@ public class DistributionService {
                 contactPerson = contactPersonBefore;
             }
             // Update the data as per user provided attribute values
-            String updateQuery = "UPDATE DISTRIBUTORS SET Name = ?, Address = ?,  Contact = ?, City = ?, ContactPerson = ?, DistributorType = ? WHERE DistributorID = ?";
+            String updateQuery = "UPDATE DISTRIBUTORS SET Name = ?, Address = ?,  Contact = ?, City = ?, ContactPerson = ?, DistributorType = ?, Balance = ? WHERE DistributorID = ?";
             ps = connection.prepareStatement(updateQuery);
             ps.setString(1, name);
             ps.setString(2, address);
@@ -426,7 +453,8 @@ public class DistributionService {
             ps.setString(4, city);
             ps.setString(5, contactPerson);
             ps.setString(6,distributorType);
-            ps.setInt(7, distributorID);
+            ps.setFloat(7, balance);
+            ps.setInt(8, distributorID);
             int result = ps.executeUpdate();
             if(result == 1)
                 System.out.println("Successfully updated distributor Details.");

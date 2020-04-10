@@ -1,7 +1,4 @@
-import com.wolfpub.services.EditingService;
-import com.wolfpub.services.ProductionService;
-import com.wolfpub.services.DistributionService;
-import com.wolfpub.services.ReportService;
+import com.wolfpub.services.*;
 import com.wolfpub.connection.DBManager;
 
 import java.sql.*;
@@ -56,7 +53,8 @@ public class Main {
         System.out.println("2: Production of a book edition or of an issue of a publication");
         System.out.println("3: Distribution");
         System.out.println("4: Reports");
-        System.out.println("5: Back to Main Menu");
+        System.out.println("5: Staff");
+        System.out.println("6: Back to Main Menu");
         int option = sc.nextInt();
         switch (option) {
             case 1:
@@ -72,6 +70,9 @@ public class Main {
                 displayReportsMenu();
                 break;
             case 5:
+                displayStaffMenu();
+                break;
+            case 6:
                 displayMainMenu();
                 break;
             default:
@@ -91,6 +92,33 @@ public class Main {
                 break;
         }
 
+    }
+
+    private static void displayStaffMenu() {
+        System.out.println("Please select one of the following choices:");
+        System.out.println("1: Enter Staff Details");
+        System.out.println("2: Go back to API Menu");
+        int option = sc.nextInt();
+        if(option == 2){
+            displayAPIMenu();
+        }else if(option < 1 || option > 2){
+            System.out.println("Invalid option selected");
+            displayStaffMenu();
+        }
+        StaffService staffService = new StaffService(option);
+        staffService.performOperation();
+        System.out.println("Current operation is finished");
+        System.out.println("Please select a choice:");
+        System.out.println("1: Continue");
+        System.out.println("2: Exit");
+        int nextOption = sc.nextInt();
+        switch(nextOption){
+            case 1:
+                displayStaffMenu();
+                break;
+            case 2:
+                break;
+        }
     }
 
     private static void displayReportsMenu() {
