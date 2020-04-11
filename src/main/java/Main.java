@@ -33,20 +33,11 @@ public class Main {
                 displayMainMenu();
                 break;
         }
-        System.out.println("Please select any other operation you would like to perform, otherwise exit");
-        System.out.println("1: Continue");
-        System.out.println("2: Exit");
-        int nextOption = sc.nextInt();
-        switch(nextOption){
-            case 1:
-                displayMainMenu();
-                break;
-            case 2:
-                break;
-        }
+
     }
 
-    private static void displayAPIMenu() {
+    private static void displayAPIMenu()
+    {
         System.out.println("Please select a which category of task/operation do you want to pursue");
         System.out.println("1: Editing and Publishing");
         System.out.println("2: Production of a book edition or of an issue of a publication");
@@ -79,17 +70,7 @@ public class Main {
                 displayAPIMenu();
                 break;
         }
-        System.out.println("Please select any other operation you would like to perform, otherwise exit current menu");
-        System.out.println("1: Continue");
-        System.out.println("2: Exit");
-        int nextOption = sc.nextInt();
-        switch(nextOption){
-            case 1:
-                displayAPIMenu();
-                break;
-            case 2:
-                break;
-        }
+
 
     }
 
@@ -104,19 +85,22 @@ public class Main {
             System.out.println("Invalid option selected");
             displayStaffMenu();
         }
-        StaffService staffService = new StaffService(option);
-        staffService.performOperation();
-        System.out.println("Current operation is finished");
-        System.out.println("Please select a choice:");
-        System.out.println("1: Continue");
-        System.out.println("2: Exit");
-        int nextOption = sc.nextInt();
-        switch(nextOption){
-            case 1:
-                displayStaffMenu();
-                break;
-            case 2:
-                break;
+        else {
+            StaffService staffService = new StaffService(option);
+            staffService.performOperation();
+            System.out.println("Current operation is finished");
+            System.out.println("Please select a choice:");
+            System.out.println("1: Continue");
+            System.out.println("2: Exit");
+            int nextOption = sc.nextInt();
+            switch (nextOption) {
+                case 1:
+                    displayStaffMenu();
+                    break;
+                case 2:
+                    displayAPIMenu();
+                    break;
+            }
         }
     }
 
@@ -136,19 +120,22 @@ public class Main {
             System.out.println("Invalid option selected");
             displayReportsMenu();
         }
-        ReportService reportService = new ReportService(option);
-        reportService.performOperation();
-        System.out.println("Current operation is finished");
-        System.out.println("Please select a choice:");
-        System.out.println("1: Continue");
-        System.out.println("2: Exit");
-        int nextOption = sc.nextInt();
-        switch(nextOption){
-            case 1:
-                displayReportsMenu();
-                break;
-            case 2:
-                break;
+        else {
+            ReportService reportService = new ReportService(option);
+            reportService.performOperation();
+            System.out.println("Current operation is finished");
+            System.out.println("Please select a choice:");
+            System.out.println("1: Continue");
+            System.out.println("2: Exit");
+            int nextOption = sc.nextInt();
+            switch (nextOption) {
+                case 1:
+                    displayReportsMenu();
+                    break;
+                case 2:
+                    displayAPIMenu();
+                    break;
+            }
         }
     }
 
@@ -168,19 +155,22 @@ public class Main {
             System.out.println("Invalid option selected");
             displayDistributionMenu();
         }
-        DistributionService distributionService = new DistributionService(option);
-        distributionService.performOperation();
-        System.out.println("Current operation is finished");
-        System.out.println("Please select a choice:");
-        System.out.println("1: Continue");
-        System.out.println("2: Exit");
-        int nextOption = sc.nextInt();
-        switch(nextOption){
-            case 1:
-                displayDistributionMenu();
-                break;
-            case 2:
-                break;
+        else {
+            DistributionService distributionService = new DistributionService(option);
+            distributionService.performOperation();
+            System.out.println("Current operation is finished");
+            System.out.println("Please select a choice:");
+            System.out.println("1: Continue");
+            System.out.println("2: Exit");
+            int nextOption = sc.nextInt();
+            switch (nextOption) {
+                case 1:
+                    displayDistributionMenu();
+                    break;
+                case 2:
+                    displayAPIMenu();
+                    break;
+            }
         }
     }
 
@@ -210,19 +200,22 @@ public class Main {
             System.out.println("Invalid option selected");
             displayProductionMenu();
         }
-        ProductionService productionService = new ProductionService(option);
-        productionService.performOperation();
-        System.out.println("Current operation is finished");
-        System.out.println("Please select a choice:");
-        System.out.println("1: Continue");
-        System.out.println("2: Exit");
-        int nextOption = sc.nextInt();
-        switch(nextOption){
-            case 1:
-                displayProductionMenu();
-                break;
-            case 2:
-                break;
+        else {
+            ProductionService productionService = new ProductionService(option);
+            productionService.performOperation();
+            System.out.println("Current operation is finished");
+            System.out.println("Please select a choice:");
+            System.out.println("1: Continue");
+            System.out.println("2: Exit");
+            int nextOption = sc.nextInt();
+            switch (nextOption) {
+                case 1:
+                    displayProductionMenu();
+                    break;
+                case 2:
+                    displayAPIMenu();
+                    break;
+            }
         }
     }
 
@@ -243,25 +236,29 @@ public class Main {
         System.out.println("13: Delete Chapter From Book");
         System.out.println("14: Go back to API Menu");
         int option = sc.nextInt();
-        if(option == 14){
+        if (option == 14) {
             displayAPIMenu();
-        }else if(option < 1 || option > 14){
+        } else if (option < 1 || option > 14) {
             System.out.println("Invalid option selected");
             displayEditingMenu();
         }
-        EditingService editingService = new EditingService(option);
-        editingService.performOperation();
-        System.out.println("Current operation is finished");
-        System.out.println("Please select a choice:");
-        System.out.println("1: Continue");
-        System.out.println("2: Exit");
-        int nextOption = sc.nextInt();
-        switch(nextOption){
-            case 1:
-                displayEditingMenu();
-                break;
-            case 2:
-                break;
+        else
+        {
+            EditingService editingService = new EditingService(option);
+            editingService.performOperation();
+            System.out.println("Current operation is finished");
+            System.out.println("Please select a choice:");
+            System.out.println("1: Continue");
+            System.out.println("2: Exit");
+            int nextOption = sc.nextInt();
+            switch (nextOption) {
+                case 1:
+                    displayEditingMenu();
+                    break;
+                case 2:
+                    displayAPIMenu();
+                    break;
         }
+    }
     }
 }
