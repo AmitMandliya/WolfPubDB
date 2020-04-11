@@ -27,7 +27,6 @@ public class Main {
                 displayAPIMenu();
                 break;
             case 2:
-                displayMainMenu();
                 break;
             default:
                 System.out.println("Invalid option selected");
